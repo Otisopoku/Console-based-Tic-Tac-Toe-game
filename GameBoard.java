@@ -1,7 +1,7 @@
 /**
- * This class is for a board game data, and contains characteristics of a simple
- * board game and actions that carries out
- * specific functions to simulated the board game.
+ * This class is for board game, and contains characteristics of a simple
+ * board game and actions that carry out
+ * specific functions to simulate the board game.
  * 
  * @author Otis Opoku.
  */
@@ -12,7 +12,7 @@ public class GameBoard {
     String[][] board = new String[5][5];
 
     /**
-     * A constructor that creats the board of the game.
+     * A constructor that creates the board of the game.
      * The numbers represent the positions that the player can play.
      * They help the players to know where to play.
      */
