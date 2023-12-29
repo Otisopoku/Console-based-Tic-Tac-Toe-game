@@ -6,8 +6,6 @@
  * @author Otis Opoku.
  */
 
-package TicTacToe;
-
 public class GameBoard {
     String[][] board = new String[5][5];
 
