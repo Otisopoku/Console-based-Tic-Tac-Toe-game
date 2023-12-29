@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
  * This class is for board game, and contains characteristics of a simple
  * board game and actions that carry out
@@ -8,7 +10,8 @@
 
 public class GameBoard {
     private final int boardSize = 5;
-    String[][] board = new String[boardSize][boardSize];
+    HashMap<String, String> board = new HashMap<>(boardSize * boardSize);
+    private final char emptyFlag = '-';
 
     /**
      * A constructor that creates the board of the game.
@@ -16,12 +19,25 @@ public class GameBoard {
      * They help the players to know where to play.
      */
     public GameBoard() {
-        for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; i < boardSize; j++) {
-                board[i][j] = String.valueOf(j + 1);
-            }
+        for (int i = 0; i < boardSize * boardSize; i++) {
+            board.put(String.valueOf(i + 1), String.valueOf(i + 1));
         }
 
+    }
+
+    // to print the board based on the hashMap
+    public void printBoard() {
+
+        for (int i = 0, count = 0; i < board.size(); i++, count++) {
+            if (count % 5 == 0) {
+                System.out.println(String.format("%n%s", "----------------------------------"));
+            } else {
+                if (count % 5 == 1)
+                    System.out.print(String.format("%-3s", board.get(i + 1)));
+                else
+                    System.out.print(String.format("%-3s", board.get(i + 1)));
+            }
+        }
     }
 
     /**
@@ -30,33 +46,33 @@ public class GameBoard {
      * description: This method prints out the elements of the board.
      * 
      */
-    public void printBoard() {
-        int counter1 = 0;
-        int counter2 = 0;
+    // public void printBoard() {
+    // int counter1 = 0;
+    // int counter2 = 0;
 
-        for (String[] arrays : board) {
+    // for (String[] arrays : board) {
 
-            for (String elements : arrays) {
-                if (counter1 >= 0 && counter1 < 4) {
-                    System.out.print(String.format("%5s%5s", elements, " | "));
-                } else {
-                    System.out.print(String.format("%5s", elements));
-                }
-                counter1++;
+    // for (String elements : arrays) {
+    // if (counter1 >= 0 && counter1 < 4) {
+    // System.out.print(String.format("%5s%5s", elements, " | "));
+    // } else {
+    // System.out.print(String.format("%5s", elements));
+    // }
+    // counter1++;
 
-            }
-            System.out.println();
-            counter1 = 0;
-            if (counter2 >= 0 && counter2 < 4) {
-                System.out.println("-------------------------------------------------");
-            } else {
-                System.out.println();
-            }
-            counter2++;
+    // }
+    // System.out.println();
+    // counter1 = 0;
+    // if (counter2 >= 0 && counter2 < 4) {
+    // System.out.println("-------------------------------------------------");
+    // } else {
+    // System.out.println();
+    // }
+    // counter2++;
 
-        }
+    // }
 
-    }
+    // }
 
     /**
      * Postdescription: void
