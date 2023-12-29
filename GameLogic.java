@@ -57,6 +57,7 @@ public class GameLogic {
                 if (result) {
                     System.out.println("Player 1 (O) wins");
                     numberOfWinsByPlayer1++;
+
                     System.exit(0);
 
                 }

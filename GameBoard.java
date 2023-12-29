@@ -7,7 +7,8 @@
  */
 
 public class GameBoard {
-    String[][] board = new String[5][5];
+    private final int boardSize = 5;
+    String[][] board = new String[boardSize][boardSize];
 
     /**
      * A constructor that creates the board of the game.
@@ -15,31 +16,11 @@ public class GameBoard {
      * They help the players to know where to play.
      */
     public GameBoard() {
-        board[0][0] = "1";
-        board[0][1] = "2";
-        board[0][2] = "3";
-        board[0][3] = "4";
-        board[0][4] = "5";
-        board[1][0] = "6";
-        board[1][1] = "7";
-        board[1][2] = "8";
-        board[1][3] = "9";
-        board[1][4] = "10";
-        board[2][0] = "11";
-        board[2][1] = "12";
-        board[2][2] = "13";
-        board[2][3] = "14";
-        board[2][4] = "15";
-        board[3][0] = "16";
-        board[3][1] = "17";
-        board[3][2] = "18";
-        board[3][3] = "19";
-        board[3][4] = "20";
-        board[4][0] = "21";
-        board[4][1] = "22";
-        board[4][2] = "23";
-        board[4][3] = "24";
-        board[4][4] = "25";
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; i < boardSize; j++) {
+                board[i][j] = String.valueOf(j + 1);
+            }
+        }
 
     }
 
@@ -103,48 +84,27 @@ public class GameBoard {
      * 
      * @return boolean (true if there is a win; otherwise it returns false)
      */
-
     public boolean checkWin() {
-        for (int i = 0; i < board.length; i++) {
-            if (board[i][0].equals(board[i][1]) && board[i][1].equals(board[i][2]) && board[i][2].equals(board[i][3])
-                    && board[i][3].equals(board[i][4])) {
+        // Check rows and columns
+        for (int i = 0; i < boardSize; i++) {
+            if ((board[i][0].equals(board[i][1]) && board[i][1].equals(board[i][2])
+                    && board[i][2].equals(board[i][3]) && board[i][3].equals(board[i][4]))
+                    || (board[0][i].equals(board[1][i]) && board[1][i].equals(board[2][i])
+                            && board[2][i].equals(board[3][i]) && board[3][i].equals(board[4][i]))) {
                 return true;
             }
         }
 
-        if (board[0][0].equals(board[1][0]) && board[1][0].equals(board[2][0]) && board[2][0].equals(board[3][0])
-                && board[3][0].equals(board[4][0])) {
-            return true;
-        }
-
-        else if (board[0][1].equals(board[1][1]) && board[1][1].equals(board[2][1]) && board[2][1].equals(board[3][1])
-                && board[3][1].equals(board[4][1])) {
-            return true;
-        }
-
-        else if (board[0][2].equals(board[1][2]) && board[1][2].equals(board[2][2]) && board[2][2].equals(board[3][2])
-                && board[3][2].equals(board[4][2])) {
-            return true;
-        } else if (board[0][3].equals(board[1][3]) && board[1][3].equals(board[2][3]) && board[2][3].equals(board[3][3])
-                && board[3][3].equals(board[4][3])) {
-            return true;
-        } else if (board[0][4].equals(board[1][4]) && board[1][4].equals(board[2][4]) && board[2][4].equals(board[3][4])
-                && board[3][4].equals(board[4][4])) {
-            return true;
-        }
-
-        else if (board[0][0].equals(board[1][1]) && board[1][1].equals(board[2][2]) && board[2][2].equals(board[3][3])
-                && board[3][3].equals(board[4][4])) {
-            return true;
-        }
-
-        else if (board[0][4].equals(board[1][3]) && board[1][3].equals(board[2][2]) && board[2][2].equals(board[3][1])
-                && board[3][1].equals(board[4][0])) {
+        // Check diagonals
+        if ((board[0][0].equals(board[1][1]) && board[1][1].equals(board[2][2]) && board[2][2].equals(board[3][3])
+                && board[3][3].equals(board[4][4]))
+                || (board[0][4].equals(board[1][3]) && board[1][3].equals(board[2][2])
+                        && board[2][2].equals(board[3][1])
+                        && board[3][1].equals(board[4][0]))) {
             return true;
         }
 
         return false;
-
     }
 
     /**
