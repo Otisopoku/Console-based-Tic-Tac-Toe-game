@@ -10,8 +10,7 @@ import java.util.HashMap;
 
 public class GameBoard {
     private final int boardSize = 5;
-    HashMap<String, String> board = new HashMap<>(boardSize * boardSize);
-    private final char emptyFlag = '-';
+    HashMap<String, String> board = new HashMap<>(boardSize * boardSize); // hashMap to designate the board of the game.
 
     /**
      * A constructor that creates the board of the game.
@@ -25,54 +24,24 @@ public class GameBoard {
 
     }
 
-    // to print the board based on the hashMap
+    /**
+     * prints the board game for the users to view the positions of their play
+     */
     public void printBoard() {
-
-        for (int i = 0, count = 0; i < board.size(); i++, count++) {
-            if (count % 5 == 0) {
-                System.out.println(String.format("%n%s", "----------------------------------"));
+        for (int i = 0; i < board.size(); i++) {
+            if (i % 5 == 0) {
+                if (i > 0) {
+                    System.out.println(String.format("%n%s", "-------------------------------"));
+                }
+                System.out.print(String.format("| %-4s", board.get(String.valueOf(i + 1))));
+            } else if (i % 5 == 4) {
+                System.out.print(String.format("| %-4s|", board.get(String.valueOf(i + 1))));
             } else {
-                if (count % 5 == 1)
-                    System.out.print(String.format("%-3s", board.get(i + 1)));
-                else
-                    System.out.print(String.format("%-3s", board.get(i + 1)));
+                System.out.print(String.format("| %-4s", board.get(String.valueOf(i + 1))));
             }
         }
+        System.out.println("\n");
     }
-
-    /**
-     * Predescription: void
-     * Postdescription: void
-     * description: This method prints out the elements of the board.
-     * 
-     */
-    // public void printBoard() {
-    // int counter1 = 0;
-    // int counter2 = 0;
-
-    // for (String[] arrays : board) {
-
-    // for (String elements : arrays) {
-    // if (counter1 >= 0 && counter1 < 4) {
-    // System.out.print(String.format("%5s%5s", elements, " | "));
-    // } else {
-    // System.out.print(String.format("%5s", elements));
-    // }
-    // counter1++;
-
-    // }
-    // System.out.println();
-    // counter1 = 0;
-    // if (counter2 >= 0 && counter2 < 4) {
-    // System.out.println("-------------------------------------------------");
-    // } else {
-    // System.out.println();
-    // }
-    // counter2++;
-
-    // }
-
-    // }
 
     /**
      * Postdescription: void
@@ -84,13 +53,7 @@ public class GameBoard {
      */
 
     public void changePosition(String pos, String play) {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j].equals(pos)) {
-                    board[i][j] = play;
-                }
-            }
-        }
+        board.put(pos, play);
     }
 
     /**
@@ -100,27 +63,38 @@ public class GameBoard {
      * 
      * @return boolean (true if there is a win; otherwise it returns false)
      */
-    public boolean checkWin() {
-        // Check rows and columns
-        for (int i = 0; i < boardSize; i++) {
-            if ((board[i][0].equals(board[i][1]) && board[i][1].equals(board[i][2])
-                    && board[i][2].equals(board[i][3]) && board[i][3].equals(board[i][4]))
-                    || (board[0][i].equals(board[1][i]) && board[1][i].equals(board[2][i])
-                            && board[2][i].equals(board[3][i]) && board[3][i].equals(board[4][i]))) {
-                return true;
-            }
-        }
-
-        // Check diagonals
-        if ((board[0][0].equals(board[1][1]) && board[1][1].equals(board[2][2]) && board[2][2].equals(board[3][3])
-                && board[3][3].equals(board[4][4]))
-                || (board[0][4].equals(board[1][3]) && board[1][3].equals(board[2][2])
-                        && board[2][2].equals(board[3][1])
-                        && board[3][1].equals(board[4][0]))) {
+    public boolean checkWin(String player) {
+        if (board.get("1").equals(player) && board.get("2").equals(player) && board.get("3").equals(player)
+                && board.get("4").equals(player) && board.get("5").equals(player)
+                || board.get("6").equals(player) && board.get("7").equals(player) && board.get("8").equals(player)
+                        && board.get("9").equals(player) && board.get("10").equals(player)
+                || board.get("11").equals(player) && board.get("12").equals(player) && board.get("13").equals(player)
+                        && board.get("14").equals(player) && board.get("15").equals(player)
+                || board.get("16").equals(player) && board.get("17").equals(player) && board.get("18").equals(player)
+                        && board.get("19").equals(player) && board.get("20").equals(player)
+                || board.get("21").equals(player) && board.get("22").equals(player) && board.get("23").equals(player)
+                        && board.get("24").equals(player) && board.get("25").equals(player)) {
             return true;
+        } else if (board.get("1").equals(player) && board.get("7").equals(player) && board.get("3").equals(player)
+                && board.get("13").equals(player) && board.get("19").equals(player) && board.get("25").equals(player)
+                || board.get("5").equals(player) && board.get("9").equals(player) && board.get("13").equals(player)
+                        && board.get("17").equals(player) && board.get("21").equals(player)) {
+            return true;
+        } else if (board.get("1").equals(player) && board.get("6").equals(player) && board.get("11").equals(player)
+                && board.get("16").equals(player) && board.get("21").equals(player)
+                || board.get("2").equals(player) && board.get("7").equals(player) && board.get("12").equals(player)
+                        && board.get("17").equals(player) && board.get("22").equals(player)
+                || board.get("3").equals(player) && board.get("8").equals(player) && board.get("13").equals(player)
+                        && board.get("18").equals(player) && board.get("23").equals(player)
+                || board.get("4").equals(player) && board.get("9").equals(player) && board.get("14").equals(player)
+                        && board.get("19").equals(player) && board.get("24").equals(player)
+                || board.get("5").equals(player) && board.get("10").equals(player) && board.get("15").equals(player)
+                        && board.get("20").equals(player) && board.get("25").equals(player)) {
+            return true;
+        } else {
+            return false;
         }
 
-        return false;
     }
 
     /**
@@ -132,13 +106,8 @@ public class GameBoard {
      */
 
     public boolean checkSpace(String pos) {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j].equals(pos)) {
-                    return false;
-                }
-
-            }
+        if (board.get(pos).equals(pos)) {
+            return false;
         }
 
         return true;
@@ -152,17 +121,10 @@ public class GameBoard {
      */
 
     public boolean isFull() {
-        int count = 0;
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j].equals("X") || board[i][j].equals("O")) {
-                    count++;
-                }
-            }
-        }
+        for (String key : board.keySet()) {
+            if (board.get(key).equals(key))
+                return false;
 
-        if (count < 25) {
-            return false;
         }
         return true;
     }
