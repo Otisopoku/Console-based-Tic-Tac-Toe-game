@@ -129,4 +129,10 @@ public class GameBoard {
         return true;
     }
 
+    public void clearBoard() {
+        for (int i = 0; i < board.size(); i++) {
+            board.put(String.valueOf(i + 1), String.valueOf(i + 1));
+        }
+    }
+
 }

@@ -10,7 +10,7 @@ public class GameLogic {
         winDistribution.add(0);
         winDistribution.add(0);
         Scanner input = new Scanner(System.in);
-        GameBoard b = new GameBoard();
+        GameBoard board = new GameBoard();
 
         int playerOnePosition, playerTwoPosition;
         String positionMovedByPlayer1, positionMovedByPlayer2;
@@ -18,117 +18,116 @@ public class GameLogic {
         boolean loopForPlayer1 = true, loopForPlayer2 = true;
         boolean replayLoop = false;
         System.out.println("Welcome to the Tic-Tac-Toe Game.\n");
-        b.printBoard();
+        board.printBoard();
 
         int numberOfWinsByPlayer1 = 0, numberOfWinsByPlayer2 = 0;
 
-        do {
-            while (!result && !b.isFull()) {
+        // do {
+        while (!result && !board.isFull()) {
 
-                /*
-                 * loop below enables player 1 to play, he is reprompted to enter a valid input
-                 * within 1 and 25 inclusive incase he gives the wrong input.
-                 */
+            /*
+             * loop below enables player 1 to play, he is reprompted to enter a valid input
+             * within 1 and 25 inclusive incase he gives the wrong input.
+             */
 
-                while (loopForPlayer1 && !b.isFull()) {
-                    System.out.print("Player 1 (O) ---- Enter a position to play: ");
-                    playerOnePosition = getInt(input);
-                    positionMovedByPlayer2 = String.format("%d", playerOnePosition);
-                    isPlayer1MoveOccupied = b.checkSpace(positionMovedByPlayer2);
+            while (loopForPlayer1 && !board.isFull()) {
+                System.out.print("Player 1 (O) ---- Enter a position to play: ");
+                playerOnePosition = getInt(input);
+                positionMovedByPlayer2 = String.format("%d", playerOnePosition);
+                isPlayer1MoveOccupied = board.checkSpace(positionMovedByPlayer2);
 
-                    if (isPlayer1MoveOccupied) {
-                        System.out.println("The position is already occupied");
-                        System.out.println("Choose a different postion");
-                        loopForPlayer1 = true;
-
-                    } else {
-                        b.changePosition(positionMovedByPlayer2, "O");
-                        System.out.println();
-                        b.printBoard();
-                        System.out.println();
-                        loopForPlayer1 = false;
-
-                    }
-
-                }
-
-                /*
-                 * checks to see if there is a win so far. If there is, ther program ends
-                 * otherwise, it continues.
-                 */
-                result = b.checkWin("O");
-                if (result) {
-                    System.out.println("Player 1 (O) wins");
-                    numberOfWinsByPlayer1++;
-                    winDistribution.set(0, numberOfWinsByPlayer1);
-                    result = false;
-
-                }
-
-                /*
-                 * loop below enables player 1 to play, he is reprompted to enter a valid input
-                 * within 1 and 25 inclusive incase he gives the wrong input.
-                 */
-                while (loopForPlayer2 && !b.isFull()) {
-                    System.out.print("Player 2 (X)---- Enter a position to play: ");
-                    playerTwoPosition = getInt(input);
-                    positionMovedByPlayer1 = String.format("%d", playerTwoPosition);
-                    isPlayer2MoveOccupied = b.checkSpace(positionMovedByPlayer1);
-
-                    if (isPlayer2MoveOccupied) {
-                        System.out.println("The position is already occupied");
-                        System.out.println("Choose a new position");
-                        loopForPlayer2 = true;
-
-                    } else {
-                        b.changePosition(positionMovedByPlayer1, "X");
-                        System.out.println();
-                        b.printBoard();
-                        System.out.println();
-                        loopForPlayer2 = false;
-
-                    }
-
-                }
-
-                /*
-                 * checks to see if there is a win so far. If there is, ther program ends
-                 * otherwise, it continues.
-                 */
-                result = b.checkWin("X");
-                if (result) {
-                    System.out.println("Player 2 (X) wins");
-                    numberOfWinsByPlayer2++;
-                    winDistribution.set(1, numberOfWinsByPlayer2);
-                    result = false;
+                if (isPlayer1MoveOccupied) {
+                    System.out.println("The position is already occupied");
+                    System.out.println("Choose a different postion");
+                    loopForPlayer1 = true;
 
                 } else {
-                    result = true;
-                    loopForPlayer1 = true;
-                    loopForPlayer2 = true;
+                    board.changePosition(positionMovedByPlayer2, "O");
+                    System.out.println();
+                    board.printBoard();
+                    System.out.println();
+                    loopForPlayer1 = false;
+
                 }
 
             }
 
-            System.out.println("Draw");
+            /*
+             * checks to see if there is a win so far. If there is, ther program ends
+             * otherwise, it continues.
+             */
+            result = board.checkWin("O");
+            if (result) {
+                System.out.println("Player 1 (O) wins");
+                numberOfWinsByPlayer1++;
+                winDistribution.set(0, numberOfWinsByPlayer1);
+                result = false;
 
-            System.out.println("Do you want to play again? Enter Y to play again, anything else to quit the game");
-            String rePlay = input.nextLine();
-
-            switch (rePlay) {
-                case "Y":
-                    replayLoop = true;
-                    result = true;
-
-                    break;
-
-                default:
-                    replayLoop = false;
-                    result = false;
-                    break;
             }
 
-        } while (replayLoop);
+            /*
+             * loop below enables player 1 to play, he is reprompted to enter a valid input
+             * within 1 and 25 inclusive incase he gives the wrong input.
+             */
+            while (loopForPlayer2 && !board.isFull()) {
+                System.out.print("Player 2 (X)---- Enter a position to play: ");
+                playerTwoPosition = getInt(input);
+                positionMovedByPlayer1 = String.format("%d", playerTwoPosition);
+                isPlayer2MoveOccupied = board.checkSpace(positionMovedByPlayer1);
+
+                if (isPlayer2MoveOccupied) {
+                    System.out.println("The position is already occupied");
+                    System.out.println("Choose a new position");
+                    loopForPlayer2 = true;
+
+                } else {
+                    board.changePosition(positionMovedByPlayer1, "X");
+                    System.out.println();
+                    board.printBoard();
+                    System.out.println();
+                    loopForPlayer2 = false;
+
+                }
+
+            }
+
+            /*
+             * checks to see if there is a win so far. If there is, ther program ends
+             * otherwise, it continues.
+             */
+            result = board.checkWin("X");
+            if (result) {
+                System.out.println("Player 2 (X) wins");
+                numberOfWinsByPlayer2++;
+                winDistribution.set(1, numberOfWinsByPlayer2);
+                result = false;
+
+            }
+
+            if (board.isFull()) {
+                System.out.println("Draw");
+                result = false;
+            }
+
+        }
+
+        System.out.println("Do you want to play again? Enter Y to play again, anything else to quit the game");
+        String rePlay = input.nextLine();
+
+        switch (rePlay) {
+            case "Y":
+                replayLoop = true;
+                result = true;
+                board.clearBoard();
+                break;
+
+            default:
+                replayLoop = false;
+                result = false;
+                break;
+        }
+
+        // } while (replayLoop);
         scoreDistribution(winDistribution);
 
     }
@@ -141,14 +140,13 @@ public class GameLogic {
      * @return an integer between 1 and 9 inclusive
      */
     public static int getInt(Scanner input) {
-
-        do {
-
+        int userInput = 0; // Initialize userInput
+        while (true) {
             try {
-                int userInput = Integer.parseInt(input.nextLine());
+                userInput = Integer.parseInt(input.nextLine());
                 if (userInput < 1 || userInput > 25)
                     throw new ValueOutOfBoundsException("Board position out of bounds for position " + userInput);
-                return userInput;
+                break; // Exit the loop if input is valid
             } catch (NumberFormatException e) {
                 System.out.println("Not an Integer");
                 System.out.println("Enter an accurate position");
@@ -156,9 +154,8 @@ public class GameLogic {
                 System.out.println(e.getMessage());
                 System.out.println("Enter an accurate position");
             }
-
-        } while (true);
-
+        }
+        return userInput;
     }
 
     public static void scoreDistribution(List<Integer> list) {
